@@ -191,7 +191,12 @@ resource "aws_autoscaling_group" "workers" {
 
   lifecycle {
     create_before_destroy = true
-    ignore_changes        = [desired_capacity, load_balancers, target_group_arns]
+    ignore_changes = [
+      desired_capacity,
+      # ignore changes to have an option to attach additional LBs to the existing worker groups outside the state
+      load_balancers,
+      target_group_arns,
+    ]
   }
 }
 
